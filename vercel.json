@@ -3,17 +3,17 @@
   "regions": ["sfo1"],
   "functions": {
     "*.php": {
-      "runtime": "php:8.2",
+      "runtime": "now-php@1.0.0",
       "maxDuration": 30
     },
     "pages/**/*.php": {
-      "runtime": "php:8.2"
+      "runtime": "now-php@1.0.0"
     },
     "admin/**/*.php": {
-      "runtime": "php:8.2"
+      "runtime": "now-php@1.0.0"
     },
     "api/**/*.php": {
-      "runtime": "php:8.2"
+      "runtime": "now-php@1.0.0"
     }
   },
   "routes": [

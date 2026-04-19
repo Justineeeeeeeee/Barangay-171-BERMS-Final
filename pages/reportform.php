@@ -8,7 +8,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_report'])){
     $emergency_type = $_POST['emergency_type'] ?? 'Unknown';
     $details = $_POST['details'] ?? '';
     $user_name = $_POST['user_name'] ?? 'Anonymous';
-    $user_email = $_POST['user_email'] ?? '';
+    $user_email = !empty($_POST['user_email']) ? $_POST['user_email'] : NULL;
     $attachment_path = '';
 
     // Handle file upload
@@ -30,9 +30,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_report'])){
         }
     }
 
+    // Prepare user_email for SQL
+    $user_email_value = $user_email !== NULL ? "'$user_email'" : "NULL";
+
     // Insert into database
     $sql = "INSERT INTO reports(user_name, user_email, emergency_type, details, attachment_path, status)
-    VALUES('$user_name', '$user_email', '$emergency_type', '$details', '$attachment_path', 'Pending')";
+    VALUES('$user_name', $user_email_value, '$emergency_type', '$details', '$attachment_path', 'Pending')";
     
     if($conn->query($sql) == TRUE){
         echo json_encode(['success' => true, 'message' => 'Report submitted successfully!', 'report_id' => $conn->insert_id]);
@@ -160,10 +163,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_report'])){
                 </div>
               </div>
               <div>
-                <label for="userEmail" class="block text-sm font-semibold text-gray-700 mb-2">Email Address <span class="text-red-500">*</span></label>
+                <label for="userEmail" class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
                 <div class="relative">
                   <i class="fas fa-envelope absolute left-3 top-3.5 text-gray-400"></i>
-                  <input type="email" id="userEmail" placeholder="Enter your email" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" required>
+                  <input type="email" id="userEmail" placeholder="Enter your email (optional)" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                 </div>
               </div>
             </div>
@@ -453,7 +456,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_report'])){
       const attachment = document.getElementById('attachment').files[0];
       const type = localStorage.getItem("emergencyType") || 'Unknown';
 
-      if (!userName.trim() || !userEmail.trim() || !comments.trim()) {
+      if (!userName.trim() || !comments.trim()) {
         Swal.fire({
           icon: 'warning',
           title: 'Missing Information',

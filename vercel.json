@@ -2,33 +2,12 @@
   "version": 2,
   "regions": ["sfo1"],
   "functions": {
-    "*.php": {
+    "api/**/*.php": {
       "runtime": "now-php@1.0.0",
       "maxDuration": 30
-    },
-    "pages/**/*.php": {
-      "runtime": "now-php@1.0.0"
-    },
-    "admin/**/*.php": {
-      "runtime": "now-php@1.0.0"
-    },
-    "api/**/*.php": {
-      "runtime": "now-php@1.0.0"
     }
   },
   "routes": [
-    {
-      "src": "^/api/(.*)",
-      "dest": "/api/$1.php"
-    },
-    {
-      "src": "^/pages/(.*)",
-      "dest": "/pages/$1.php"
-    },
-    {
-      "src": "^/admin/(.*)",
-      "dest": "/admin/$1.php"
-    },
     {
       "src": "/img/(.*)",
       "dest": "/img/$1"
@@ -54,16 +33,8 @@
       "dest": "/admin_uploads/$1"
     },
     {
-      "src": "/(.*)\\.php",
-      "dest": "/$1.php"
-    },
-    {
-      "src": "/",
-      "dest": "/index.php"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/index.php"
+      "dest": "/api/router.php"
     }
   ],
   "buildCommand": "npm run build || echo 'No build command'",

@@ -1,15 +1,70 @@
 {
   "version": 2,
-  "buildCommand": "echo 'BERMS Application Ready'",
+  "runtime": "php:8.2",
+  "regions": ["sfo1"],
   "functions": {
+    "*.php": {
+      "runtime": "php:8.2",
+      "maxDuration": 30
+    },
+    "pages/**/*.php": {
+      "runtime": "php:8.2"
+    },
+    "admin/**/*.php": {
+      "runtime": "php:8.2"
+    },
     "api/**/*.php": {
       "runtime": "php:8.2"
     }
   },
   "routes": [
     {
+      "src": "^/api/(.*)",
+      "dest": "/api/$1.php"
+    },
+    {
+      "src": "^/pages/(.*)",
+      "dest": "/pages/$1.php"
+    },
+    {
+      "src": "^/admin/(.*)",
+      "dest": "/admin/$1.php"
+    },
+    {
+      "src": "/img/(.*)",
+      "dest": "/img/$1"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/images/(.*)",
+      "dest": "/images/$1"
+    },
+    {
+      "src": "/uploads/(.*)",
+      "dest": "/uploads/$1"
+    },
+    {
+      "src": "/report_uploads/(.*)",
+      "dest": "/report_uploads/$1"
+    },
+    {
+      "src": "/admin_uploads/(.*)",
+      "dest": "/admin_uploads/$1"
+    },
+    {
+      "src": "/(.*)\\.php",
+      "dest": "/$1.php"
+    },
+    {
+      "src": "/",
+      "dest": "/index.php"
+    },
+    {
       "src": "/(.*)",
-      "dest": "index.php"
+      "dest": "/index.php"
     }
   ],
   "env": {
@@ -18,7 +73,10 @@
     "DB_PASSWORD": "@db_password",
     "DB_NAME": "@db_name",
     "APP_ENV": "production",
-    "APP_DEBUG": "false"
+    "APP_DEBUG": "false",
+    "APP_NAME": "BERMS",
+    "SESSION_LIFETIME": "7200"
   },
-  "regions": ["sjc1"]
+  "buildCommand": "npm run build || echo 'No build command'",
+  "public": false
 }

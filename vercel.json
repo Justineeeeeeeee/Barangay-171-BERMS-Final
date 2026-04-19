@@ -17,5 +17,6 @@
       "destination": "/api/index.php"
     }
   ],
-  "buildCommand": "npm run build || echo 'No build command'"
+  "buildCommand": "npm run build || echo 'No build command'",
+  "outputDirectory": "."
 }

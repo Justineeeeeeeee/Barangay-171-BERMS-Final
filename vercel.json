@@ -38,5 +38,5 @@
     }
   ],
   "buildCommand": "npm run build || echo 'No build command'",
-  "public": false
+  "outputDirectory": "."
 }

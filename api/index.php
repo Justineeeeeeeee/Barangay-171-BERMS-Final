@@ -52,12 +52,6 @@ $_SERVER['SCRIPT_NAME'] = $relativePath;
 $_SERVER['PHP_SELF'] = $relativePath;
 $_SERVER['DOCUMENT_ROOT'] = $documentRoot;
 
-// Ensure HTML responses are not downloaded
-if (stripos($realFile, '.php') !== false) {
-    header('Content-Type: text/html; charset=utf-8');
-    header_remove('Content-Disposition');
-}
-
 chdir(dirname($realFile));
 
 require $realFile;

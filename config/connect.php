@@ -50,9 +50,28 @@ $dbname = env('DB_NAME', 'incident_system');
 // Create connection
 $conn = new mysqli($host, $user, $password, $dbname);
 
-// Don't die immediately - let the calling script handle connection errors
-// if($conn->connect_error){
-//     die("Connection failed: " . $conn->connect_error);
-// }
+// Check connection
+if($conn->connect_error){
+    // On Vercel, provide helpful error message
+    if (getenv('VERCEL')) {
+        die("❌ Database Connection Error on Vercel\n\n" .
+            "Error: " . $conn->connect_error . "\n\n" .
+            "SOLUTION:\n" .
+            "1. Go to your Vercel project dashboard\n" .
+            "2. Go to Settings → Environment Variables\n" .
+            "3. Add these variables:\n" .
+            "   DB_HOST=<your-database-host>\n" .
+            "   DB_USER=<your-database-user>\n" .
+            "   DB_PASSWORD=<your-database-password>\n" .
+            "   DB_NAME=<your-database-name>\n\n" .
+            "Use services like:\n" .
+            "- JawsDB (jawsdb.com)\n" .
+            "- Hostinger Remote MySQL\n" .
+            "- AWS RDS\n"
+        );
+    } else {
+        die("Connection failed: " . $conn->connect_error);
+    }
+}
 
 ?>

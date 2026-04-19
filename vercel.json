@@ -13,6 +13,21 @@
       "dest": "/api/index.php"
     }
   ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/html; charset=utf-8"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline"
+        }
+      ]
+    }
+  ],
   "buildCommand": "npm run build || echo 'No build command'",
   "outputDirectory": "."
 }

@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "runtime": "php:8.2",
   "regions": ["sfo1"],
   "functions": {
     "*.php": {

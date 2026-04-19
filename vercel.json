@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "buildCommand": "echo 'BERMS Application Ready'",
+  "functions": {
+    "api/**/*.php": {
+      "runtime": "php:8.2"
+    }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "index.php"
+    }
+  ],
+  "env": {
+    "DB_HOST": "@db_host",
+    "DB_USER": "@db_user",
+    "DB_PASSWORD": "@db_password",
+    "DB_NAME": "@db_name",
+    "APP_ENV": "production",
+    "APP_DEBUG": "false"
+  },
+  "regions": ["sjc1"]
+}

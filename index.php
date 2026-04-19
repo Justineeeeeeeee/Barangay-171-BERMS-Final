@@ -1,3 +1,7 @@
+<?php
+// Load path helpers for dynamic URLs
+require_once __DIR__ . '/config/paths.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,13 +21,13 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16 sm:h-20">
                 <div class="flex items-center gap-2 sm:gap-3">
-                    <img src="images/logo.png" alt="BERMS Logo" class="h-14 w-14 sm:h-20 sm:w-20 object-contain">
+                    <img src="<?php echo imageUrl('logo.png'); ?>" alt="BERMS Logo" class="h-14 w-14 sm:h-20 sm:w-20 object-contain">
                     <div>
                         <h1 class="text-lg sm:text-2xl font-bold text-blue-600">BERMS</h1>
                         <p class="text-xs text-gray-600 hidden sm:block">Barangay 171 Emergency Response System</p>
                     </div>
                 </div>
-                <a href="admin/adminlogin.php" onclick="navigateToAdminLogin(event)" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-3 sm:py-2 sm:px-6 rounded-lg transition duration-300 flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
+                <a href="<?php echo adminUrl('adminlogin.php'); ?>" onclick="navigateToAdminLogin(event)" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-3 sm:py-2 sm:px-6 rounded-lg transition duration-300 flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
                     <i class="fas fa-sign-in-alt"></i>
                     <span class="hidden sm:inline">Admin Login</span>
                     <span class="sm:hidden">Login</span>
@@ -259,12 +263,12 @@
             // Store the emergency type in localStorage
             localStorage.setItem('emergencyType', type);
             // Redirect directly to report form (no login required)
-            window.location.href = 'pages/reportform.php';
+            window.location.href = '<?php echo pageUrl('reportform.php'); ?>';
         }
 
         function navigateToAdminLogin(event) {
             event.preventDefault();
-            window.location.href = 'admin/adminlogin.php';
+            window.location.href = '<?php echo adminUrl('adminlogin.php'); ?>';
         }
     </script>
 </body>

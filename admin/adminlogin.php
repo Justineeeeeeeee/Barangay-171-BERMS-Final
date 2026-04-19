@@ -63,7 +63,7 @@ if(isset($_POST['login'])){
 </head>
 <body class="bg-gradient-to-br from-red-50 via-blue-50 to-orange-50 min-h-screen flex items-center justify-center p-4">
     <!-- Back to Home Button -->
-    <a href="../index.php" class="absolute top-4 left-4 text-orange-600 hover:text-orange-800 font-semibold flex items-center gap-2 transition transform hover:scale-105">
+    <a href="<?php echo baseUrl(); ?>" class="absolute top-4 left-4 text-orange-600 hover:text-orange-800 font-semibold flex items-center gap-2 transition transform hover:scale-105">
         <i class="fas fa-arrow-left"></i>
         Back to Home
     </a>
@@ -79,7 +79,7 @@ if(isset($_POST['login'])){
     <div class="bg-white rounded-2xl shadow-2xl overflow-hidden w-full max-w-md">
         <!-- Header with Logo -->
         <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-8 text-center">
-            <img src="../images/logo.png" alt="BERMS Logo" class="h-28 w-28 mx-auto mb-4 object-contain">
+            <img src="<?php echo imageUrl('logo.png'); ?>" alt="BERMS Logo" class="h-28 w-28 mx-auto mb-4 object-contain">
             <h1 class="text-3xl font-bold">Admin Portal</h1>
             <p class="text-blue-100 mt-2">BERMS Management System</p>
         </div>
@@ -130,7 +130,7 @@ if(isset($_POST['login'])){
             <!-- Back Link -->
             <div class="text-center mt-6">
                 <p class="text-gray-600 text-sm">
-                    <a href="../index.php" class="text-orange-600 hover:text-orange-800 font-semibold">← Back to Home</a>
+                    <a href="<?php echo baseUrl(); ?>" class="text-orange-600 hover:text-orange-800 font-semibold">← Back to Home</a>
                 </p>
             </div>
         </div>
@@ -148,7 +148,7 @@ if(isset($_POST['login'])){
                     allowOutsideClick: false,
                     allowEscapeKey: false
                 }).then(() => {
-                    window.location.href = 'admin_dashboard.php';
+                    window.location.href = '<?php echo adminUrl('admin_dashboard.php'); ?>';
                 });
             });
         <?php endif; ?>

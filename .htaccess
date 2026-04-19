@@ -1,0 +1,20 @@
+# Minimal BERMS .htaccess - Basic security only
+# Simplified to prevent 403 errors
+
+# Enable URL rewriting
+RewriteEngine On
+
+# Set the default index file
+DirectoryIndex index.php
+
+# Security: Prevent access to sensitive files
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql|conf|env)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Prevent directory listing
+Options -Indexes
+
+# Allow all access to the application (remove restrictive directory blocks)
+# The <Directory> blocks were causing 403 errors

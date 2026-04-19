@@ -13,6 +13,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_report'])){
 
     // Handle file upload
     if(isset($_FILES['attachment']) && $_FILES['attachment']['error'] == 0){
+        $uploadConfig = getUploadConfig();
         $targetDir = "../uploads/reports/";
         if(!is_dir($targetDir)){
             mkdir($targetDir, 0777, true);
@@ -21,12 +22,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_report'])){
         $targetFile = $targetDir . $fileName;
         $fileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
-        // Check if file is an image or video
-        $allowedTypes = array('jpg', 'jpeg', 'png', 'gif', 'mp4', 'avi');
-        if(in_array($fileType, $allowedTypes)){
+        // Check file size
+        if($_FILES['attachment']['size'] > $uploadConfig['max_size']){
+            echo json_encode(['success' => false, 'message' => 'File size exceeds limit']);
+            exit();
+        }
+
+        // Check if file type is allowed
+        if(in_array($fileType, $uploadConfig['allowed_types'])){
             if(move_uploaded_file($_FILES['attachment']['tmp_name'], $targetFile)){
                 $attachment_path = "uploads/reports/" . $fileName; // Store web-accessible path
             }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'File type not allowed']);
+            exit();
         }
     }
 
@@ -120,7 +129,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_report'])){
   <!-- Back Navigation -->
   <div class="bg-white shadow">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <a href="../index.php" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold transition">
+      <a href="<?php echo baseUrl(); ?>" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold transition">
         <i class="fas fa-arrow-left mr-2"></i>
         Back to Home
       </a>
@@ -364,7 +373,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_report'])){
     document.getElementById("attachment").addEventListener('change', function(e) {
       const file = e.target.files[0];
       if(file) {
-        const maxSize = 10 * 1024 * 1024; // 10MB
+        // Max file size from .env (UPLOAD_MAX_SIZE)
+        const maxSize = 10 * 1024 * 1024; // 10MB - update to match .env setting
         if(file.size > maxSize) {
           Swal.fire({
             icon: 'error',
@@ -489,7 +499,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_report'])){
             html: 'Emergency Report Submitted Successfully!<br><br>Your report number: <strong>#' + data.report_id + '</strong>',
             confirmButtonColor: '#3b82f6'
           }).then(() => {
-            window.location = '../index.php';
+            window.location = '<?php echo baseUrl(); ?>';
           });
         } else {
           Swal.fire({

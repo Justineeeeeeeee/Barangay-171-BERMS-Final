@@ -124,7 +124,7 @@ if(isset($_POST['signIn'])){
 </head>
 <body class="bg-gradient-to-br from-red-50 via-blue-50 to-orange-50 min-h-screen flex items-center justify-center p-4">
     <!-- Back to Home Button -->
-    <a href="../index.php" class="absolute top-4 left-4 text-orange-600 hover:text-orange-800 font-semibold flex items-center gap-2 transition transform hover:scale-105">
+    <a href="<?php echo baseUrl(); ?>" class="absolute top-4 left-4 text-orange-600 hover:text-orange-800 font-semibold flex items-center gap-2 transition transform hover:scale-105">
         <i class="fas fa-arrow-left"></i>
         Back to Home
     </a>

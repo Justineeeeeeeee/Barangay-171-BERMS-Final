@@ -41,7 +41,7 @@ $user = mysqli_fetch_assoc($query);
       <div class="flex justify-between items-center h-20">
         <div class="flex items-center gap-4">
           <div class="h-16 w-16 bg-white rounded-lg flex items-center justify-center overflow-hidden">
-            <img src="../images/logo.jpg" alt="BERMS Logo" class="h-full w-full object-cover">
+            <img src="<?php echo imageUrl('logo.jpg'); ?>" alt="BERMS Logo" class="h-full w-full object-cover">
           </div>
           <h1 class="text-white text-xl md:text-2xl font-bold hidden md:block">BERMS</h1>
         </div>

@@ -65,7 +65,7 @@ if(isset($_POST['register'])){
                     $birthday = $conn->real_escape_string($birthday);
                     $insert_sql = "INSERT INTO admin (username, email, password, id_picture, birthday) VALUES ('$username', '$email', '$password', '$id_picture', '$birthday')";
                     if($conn->query($insert_sql)){
-                        $success = "Admin account created successfully! <a href='admin_dashboard.php' class='text-white underline'>Go back to dashboard</a>";
+                        $success = "Admin account created successfully! <a href='<?php echo adminUrl('admin_dashboard.php'); ?>' class='text-white underline'>Go back to dashboard</a>";
                     } else {
                         $error = "Error creating admin account. Please try again!";
                         unlink($file_path);
@@ -135,7 +135,7 @@ if(isset($_POST['register'])){
             <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
                 <!-- Header -->
                 <div class="bg-gradient-to-r from-blue-600 to-blue-800 px-8 py-8 text-center">
-                    <img src="../images/logo.png" alt="BERMS Logo" class="h-20 w-20 object-contain mx-auto mb-4">
+                    <img src="<?php echo imageUrl('logo.png'); ?>" alt="BERMS Logo" class="h-20 w-20 object-contain mx-auto mb-4">
                     <h1 class="text-3xl font-bold text-white mb-2">BERMS Admin</h1>
                     <p class="text-blue-100">Register New Admin Account</p>
                 </div>
@@ -239,7 +239,7 @@ if(isset($_POST['register'])){
 
                     <!-- Footer -->
                     <div class="mt-6 text-center">
-                        <a href="admin_dashboard.php" class="text-blue-600 hover:text-blue-800 font-semibold transition">
+                        <a href="<?php echo adminUrl('admin_dashboard.php'); ?>" class="text-blue-600 hover:text-blue-800 font-semibold transition">
                             <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
                         </a>
                     </div>
@@ -276,7 +276,7 @@ if(isset($_POST['register'])){
                     text: 'The new admin account has been registered.',
                     confirmButtonColor: '#3b82f6'
                 }).then(() => {
-                    window.location.href = 'admin_dashboard.php';
+                    window.location.href = '<?php echo adminUrl('admin_dashboard.php'); ?>';
                 });
             });
         <?php endif; ?>

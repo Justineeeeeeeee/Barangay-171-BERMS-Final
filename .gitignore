@@ -1,0 +1,65 @@
+# Barangay Emergency Response and Monitoring System (BERMS) .gitignore
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.staging
+
+# Logs
+*.log
+logs/
+error_log
+php_error.log
+
+# Database files (for security)
+*.sql
+!Databasefile/*.sql  # Allow the schema file but not dumps
+
+# Upload directories (user-generated content)
+uploads/
+report_uploads/
+admin_uploads/
+
+# Cache and temporary files
+cache/
+tmp/
+temp/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Node modules (if any)
+node_modules/
+
+# Composer (if used in future)
+vendor/
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Session files
+session/
+
+# Debug files
+debug.log
+error.log
+
+# Temporary files
+*.tmp
+*.temp
